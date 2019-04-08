@@ -1,0 +1,51 @@
+// Import Montserrat font
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+$palette: (
+    primary       : #005DFF,
+    accent        : #FFF6BB,
+    primary-light : lighten(#005DFF, 40%),
+    primary-dark  : darken (#005DFF, 40%),
+);
+
+%full-size {
+    height: 100%;
+    width: 100%;
+
+    padding: 0;
+    margin: 0;
+}
+
+@function getColorFromPalette($color-name) {
+    @return map-get($palette, $color-name);
+}
+
+html{
+    @extend %full-size;
+
+    height: 100vh;
+    width: 100vw;
+}
+
+body{
+    @extend %full-size;
+    font-family: "Montserrat", sans-serif;
+
+    .bg{
+        @extend %full-size;
+
+        background-color: getColorFromPalette(primary);
+        clip-path: polygon(0 0, 75% 0, 55% 100%, 0 100%);
+
+        position: absolute;
+        z-index: -1;
+    }
+
+    #app-container{
+        @extend %full-size;
+
+        box-sizing: border-box;
+        position: absolute;
+        z-index: 1;
+    }
+}

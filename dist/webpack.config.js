@@ -17,7 +17,7 @@ module.exports = (env, argv) => {
                 "redux",
                 "redux-thunk",
             ],
-            app : `${__dirname}/src/app/index.jsx`,
+            app : `${__dirname}/src/index.jsx`,
         },
         output : {
             path       : `${__dirname}/public`,
@@ -89,7 +89,7 @@ module.exports = (env, argv) => {
 			port        : 9000,                     // Use port 9000
 			before : function(app, server) {        // Custom configurtion, redirect all routes to index.html
 				app.get("**", (req, res, next) => {
-					console.log(`[SWR Server] Requested url: ${req.url}`);
+					console.log(`[Server] Requested url: ${req.url}`);
 
 					next();
 				});
@@ -104,7 +104,6 @@ module.exports = (env, argv) => {
             new CleanWebpackPlugin(["js", "css", "media"], { root : `${__dirname}/public` })
         )
     }
-
 
     return config;
 };

@@ -1,0 +1,8 @@
+# Dependencies
+node_modules/
+
+# Webpack Compilations
+
+public/css/
+public/js/
+public/media/
