@@ -1,0 +1,29 @@
+{
+  "name": "webpack-react-app",
+  "version": "1.0.0",
+  "description": "Creates a standard configuration for developing an app with react and webpack.",
+  "main": "lib/webpack-react-app.js",
+  "bin": {
+    "webpack-react-app": "./bin/webpack-react-app.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/martline1/webpack-react-app.git"
+  },
+  "keywords": [
+    "react",
+    "webpack"
+  ],
+  "author": "Yael Mártin A. Alcalá León <yael.alcalla@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/martline1/webpack-react-app/issues"
+  },
+  "homepage": "https://github.com/martline1/webpack-react-app#readme",
+  "dependencies": {
+    "commander": "^2.20.0"
+  }
+}
