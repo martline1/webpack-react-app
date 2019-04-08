@@ -2,7 +2,7 @@
 
 Creates a standard configuration for developing an app with react and webpack.
 
-## Version: 1.0.2
+## Version: 1.0.3
 
 ## Release date: 2019/04/08
 
