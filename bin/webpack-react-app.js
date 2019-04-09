@@ -11,6 +11,11 @@ const staticFiles = [
     "/package.json"
 ];
 
+/**
+ * webpack-react-app
+ * @author Yael Mártin A. Alcalá León <yael.alcalla@gmail.com>
+ * @version 1.0.4
+ */
 program
     .version("1.0.2", "-v, --version")
     .option("-c, --copy-config", "Copy just the configuration in the current folder.")
@@ -33,22 +38,24 @@ program
                 const distPath = __dirname + "/../dist";
                 const newPath  = process.cwd().replace("/", "\\") + "\\" + program.createWithConfig;
 
+                // Create dirs
                 fs.mkdirSync(process.cwd() + "/" + program.createWithConfig);
+                // fs.mkdirSync(`${newPath}/node_modules/`);
 
                 console.log("Copying files...");
                 ncp(distPath, newPath, err => {
                     if (err) return console.log("There was an error while copying the files.", err);
-
                     console.log("Copying files complete.");
 
-                    console.log("Installing dependencies...");
-                    exec(`cd ${distPath} && npm install --prefix ${distPath}`, (err, stdout, stderr) => {
-                        if (err) return console.log("There was an error while creating the dir. ", err); 
+                    // TODO: Be able to install node dependencies
+                    // console.log("Installing dependencies...");
+                    // exec(`npm install --prefix ${newPath}`, (err, stdout, stderr) => {
+                    //     if (err) return console.log("There was an error while creating the dir. ", err); 
 
-                        console.log(stdout);
-                        console.log(stderr);        
-                    });
-                })
+                    //     console.log(stdout);
+                    //     console.log(stderr);        
+                    // });
+                });
             } catch(err) {
                 console.log("An exception has occurred. \n", err);
             }

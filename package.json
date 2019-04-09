@@ -1,6 +1,6 @@
 {
   "name": "webpack-react-app",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Creates a standard configuration for developing an app with react and webpack.",
   "main": "lib/webpack-react-app.js",
   "bin": {
