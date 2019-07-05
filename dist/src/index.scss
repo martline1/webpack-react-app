@@ -1,12 +1,7 @@
 // Import Montserrat font
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
+@import "./ui/constants";
 
-$palette: (
-    primary       : #005DFF,
-    accent        : #FFF6BB,
-    primary-light : lighten(#005DFF, 40%),
-    primary-dark  : darken (#005DFF, 40%),
-);
 
 %full-size {
     height: 100%;
@@ -14,10 +9,6 @@ $palette: (
 
     padding: 0;
     margin: 0;
-}
-
-@function getColorFromPalette($color-name) {
-    @return map-get($palette, $color-name);
 }
 
 html{
@@ -34,7 +25,7 @@ body{
     .bg{
         @extend %full-size;
 
-        background-color: getColorFromPalette(primary);
+        background-color: $main;
         clip-path: polygon(0 0, 75% 0, 55% 100%, 0 100%);
 
         position: absolute;

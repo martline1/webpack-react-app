@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Webpack Compilations
-
+# Webpack Compilation
 public/css/
 public/js/
 public/media/
+public/index.html

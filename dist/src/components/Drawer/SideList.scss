@@ -1,0 +1,14 @@
+.List{
+    .StarImgContainer{
+        display: flex;
+
+        .spacer{
+            flex-grow: 1;
+        }
+        .StarImg {
+            width: 24px;
+            align-self: flex-end;
+            cursor: pointer;
+        }
+    }
+}

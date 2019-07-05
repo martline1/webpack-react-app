@@ -1,24 +1,31 @@
 import React                     from "react";
+import { Provider }              from "react-redux";
 import { render }                from "react-dom";
 import { Router, Route, Switch } from "react-router-dom";
-import createBrowserHistory      from "history/createBrowserHistory";
 
 // Import Own Components
-import app from "./app.jsx";
+import AppRoutes from "./config/routes/AppRoutes.jsx";
+import AppBar    from "./components/AppBar/AppBar.jsx";
+import Drawer    from "./components/Drawer/Drawer.jsx";
+import Store     from "./config/store/Store.jsx";
+import history   from "./config/helpers/history";
 import "./index.scss";
 
-const history      = createBrowserHistory();
 const appContainer = document.querySelector("#app-container");
 
 render(
-    <Router history={history}>
-        <div className="bg">
-            {/* App routes */}
-            <Switch>
-                <Route path="/" exact component={app} />
-                <Route component={props => <h1>404 Not Found</h1> } />
-            </Switch>
-        </div>
-    </Router>,
-    appContainer
+	<Router history={history}>
+		<Provider store={Store}>
+			<AppBar />
+			<Drawer />
+			<div className="bg">
+				<Switch>
+					{ AppRoutes.map(route => (
+						<Route {...route} key={route.path || "not_found"} />
+					)) }
+				</Switch>
+			</div>
+		</Provider>
+	</Router>,
+	appContainer
 );
