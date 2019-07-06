@@ -2,22 +2,44 @@
 
 Creates a standard configuration for developing an app with react and webpack.
 
-## Version: 1.0.4
+## Version: 1.1.0
 
-## Release date: 2019/04/08
+## Release date: 2019/07/06
 
 # Usage
 
-### Generate config files in dir
-Running this in the root directory of your app will add and copy all structure and files needed for **webpack** and **react**.
+### Get help
 ```sh
-$ webpack-react-app --copy-config   # This will copy just the configuration files
+$ webpack-react-app --help
+$ wra --help    # You can use wra instead
 ```
 
-### Create a dir and then generate structure in that dir
+### Copy configuration.
 ```sh
-$ webpack-react-app --create-with-config my-app # Create a dir and copy the configuration in there
+$ wra copy   # Copy just the general configuration in the current folder.
 ```
-This will create a dir of name *my-app* and copy all structure needed from **webpack** and **react**, it also creates a *Hello-world* app.
 
-Type `$ webpack-react-app -h` for more details.
+### Generate a project
+Generate a project with the configuration needed. *You must run npm install*
+```sh
+$ wra generate my-project   # Create project in "my-poject" dir
+$ cd my-project
+$ npm install
+$ npm run build-dev-server  # Run development-build with a server.
+```
+
+# Available scripts in Generated Projects
+
+In the project directory, you can run:
+
+### `npm run build-dev-server`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:9000](http://localhost:3000) to view it.
+
+The page will reload if you make edits.
+
+### `npm run build-production`
+
+Creates a production version of your app <br>
+This version will compile in `/public` dir.
