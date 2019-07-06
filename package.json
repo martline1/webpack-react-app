@@ -4,7 +4,8 @@
   "description": "Creates a standard configuration for developing an app with react and webpack.",
   "main": "lib/webpack-react-app.js",
   "bin": {
-    "webpack-react-app": "./bin/webpack-react-app.js"
+    "webpack-react-app": "./bin/webpack-react-app.js",
+    "wra": "./bin/wra.js"
   },
   "repository": {
     "type": "git",
