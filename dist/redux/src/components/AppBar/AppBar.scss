@@ -1,0 +1,21 @@
+@import "../../ui/constants";
+
+.AppBar {
+    display: flex;
+    align-items: center;
+
+    height: 56px;
+    color: $main;
+    background-color: white;
+    padding: 6px 0;
+
+    button {
+        margin: 0 10px;
+        transform: scale(1.2);
+    }
+    h6 {
+        padding-left: 16px;
+        flex-grow: 1;
+        font-size: 1.6em;
+    }
+}

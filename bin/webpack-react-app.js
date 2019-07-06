@@ -1,64 +1,87 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --harmony
 
 'use strict';
 
-const program     = require('commander');
-const fs          = require("fs");
-const staticFiles = [
-    "/webpack.config.js",
-    "/postcss.config.js",
+const program = require('commander');
+const fs      = require("fs")
+
+const configFiles = [
     "/.babelrc",
-    "/package.json"
+    "/.gitignore",
+    "/package.json",
+    "/postcss.config.js",
+    "/template.html",
+    "/webpack.config.js",
 ];
 
-/**
- * webpack-react-app
- * @author Yael Mártin A. Alcalá León <yael.alcalla@gmail.com>
- * @version 1.0.4
- */
+program.version("1.1.0", "-v, --version");
+
 program
-    .version("1.0.2", "-v, --version")
-    .option("-c, --copy-config", "Copy just the configuration in the current folder.")
-    .option("-C, --create-with-config <dir>", "Create a dir and copy the configuration in there.")
-    .action(() => {
-        if (program.copyConfig) {
-            /** Iterate and copy each staticFile */
-            staticFiles.map(file => {
-                fs.copyFile(__dirname + "/../dist" + file, process.cwd() + file, err => {
-                    if (err) return console.log("There was an error while copying the files.", err);
-                    console.log(`Copying ${file} file...`);
-                })
+    .command("generate <name>")
+    .description("Generate a project with the configuration needed.")
+    .option("-r, --only-redux", "Generates project with redux.")
+    .option("-R, --only-react-router", "Generates project with react-router.")
+    .action((name, { onlyReactRouter, onlyRedux }) => {
+        if (onlyReactRouter && onlyRedux) {
+            console.error("Error: Invalid use of command. If you want all configuration, you don't need to specify any flags.");
+            process.exit(1);
+        }
+
+        try {
+            const { ncp }  = require("ncp");
+            const { exec } = require("child_process");
+
+            const distPath = __dirname + "/../dist/" +
+                (!(onlyReactRouter || onlyRedux) ? "all" :                      // If there's no flag, install all, else
+                onlyReactRouter                 ? "react_router" : "redux");    // if there's onlyReactRouter flag, install react_router, else install redux
+
+            const newPath  = process.cwd().replace("/", "\\") + "\\" + name;
+
+            // Create dirs
+            fs.mkdirSync(process.cwd() + "/" + name);
+
+            console.log("Copying files...\n");
+
+            ncp(distPath, newPath, err => {
+                if (err) {
+                    console.error("Error: There was an error while copying the files. \n", err);
+                    process.exit(1);
+                }
+                console.log("Copying files complete.");
+
+                // TODO: Be able to install node dependencies
+                // console.log("Installing dependencies...");
+                // exec(`npm install --prefix ${newPath}`, (err, stdout, stderr) => {
+                //     if (err) return console.log("There was an error while creating the dir. ", err); 
+
+                //     console.log(stdout);
+                //     console.log(stderr);        
+                // });
             });
+        } catch(err) {
+            console.log("Error: An exception has occurred while generating project. \n", err);
+            process.exit(1);
         }
-        else if (program.createWithConfig) {
-            try {
-                const { ncp }  = require("ncp");
-                const { exec } = require("child_process");
+    });
 
-                const distPath = __dirname + "/../dist";
-                const newPath  = process.cwd().replace("/", "\\") + "\\" + program.createWithConfig;
+program
+    .command("copy")
+    .description("Copy just the general configuration in the current folder.")
+    .action(() => {
+        /** Iterate and copy each staticFile */
+        configFiles.map(file =>
+            fs.copyFile(__dirname + "/../dist/all" + file, process.cwd() + file, err => {
+                if (err) return console.log("There was an error while copying the files.", err);
+                console.log(`Copying ${file} file...`);
+            })
+        );
+    });
 
-                // Create dirs
-                fs.mkdirSync(process.cwd() + "/" + program.createWithConfig);
-                // fs.mkdirSync(`${newPath}/node_modules/`);
+// error on unknown commands
+program.on('command:*', function () {
+    console.error('Invalid command: %s\nSee --help for a list of available commands.', program.args.join(' '));
+    process.exit(1);
+});
 
-                console.log("Copying files...");
-                ncp(distPath, newPath, err => {
-                    if (err) return console.log("There was an error while copying the files.", err);
-                    console.log("Copying files complete.");
-
-                    // TODO: Be able to install node dependencies
-                    // console.log("Installing dependencies...");
-                    // exec(`npm install --prefix ${newPath}`, (err, stdout, stderr) => {
-                    //     if (err) return console.log("There was an error while creating the dir. ", err); 
-
-                    //     console.log(stdout);
-                    //     console.log(stderr);        
-                    // });
-                });
-            } catch(err) {
-                console.log("An exception has occurred. \n", err);
-            }
-        }
-    })
+program
     .parse(process.argv);
